@@ -1,0 +1,50 @@
+features:
+  extraction:
+    peak_min_prominence: 0.01
+    peak_min_distance: 3
+    background_window: 31
+
+bcars_realism:
+  enabled: true
+  neighbor_k: 5
+  selected_features:
+    - peak_count
+    - mean_peak_width
+    - std_peak_width
+    - y_std
+    - dynamic_range
+    - first_derivative_std
+    - second_derivative_std
+    - total_variation
+    - background_dominance_ratio
+    - spectral_spread
+    - left_right_asymmetry
+
+raman_consistency:
+  enabled: true
+  neighbor_k: 5
+  selected_features:
+    - peak_count
+    - mean_peak_width
+    - std_peak_width
+    - highest_peak_position
+    - mean_peak_height
+    - dynamic_range
+    - spectral_spread
+    - center_of_mass
+
+artifact_detection:
+  enabled: true
+  thresholds:
+    roughness_divisor: 5.0
+    curvature_divisor: 10.0
+    background_divisor: 10.0
+    narrow_peak_width_threshold: 3.0
+    spike_ratio_threshold: 10.0
+
+confidence:
+  enabled: true
+
+score_labels:
+  high_threshold: 0.75
+  medium_threshold: 0.45

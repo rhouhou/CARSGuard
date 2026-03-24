@@ -1,0 +1,40 @@
+validation:
+  require_strictly_increasing_x: true
+  reject_nan: true
+  reject_inf: true
+
+axis:
+  crop:
+    enabled: false
+    x_min: 800.0
+    x_max: 1800.0
+  resample:
+    enabled: false
+    num_points: 1000
+    mode: intersection
+    interpolation_method: linear
+
+normalization:
+  method: none
+  allowed_methods:
+    - none
+    - minmax
+    - max
+    - area
+    - zscore
+    - vector
+
+filtering:
+  method: none
+  allowed_methods:
+    - none
+    - moving_average
+  window_size: 5
+
+baseline:
+  method: none
+  allowed_methods:
+    - none
+    - moving_minimum
+  window_size: 31
+  clip_zero: false

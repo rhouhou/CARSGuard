@@ -1,0 +1,33 @@
+project:
+  name: CARSGuard
+  version: 0.1.0
+
+paths:
+  benchmark_table: data/benchmark_table.csv
+  raw_data_dir: data/raw
+  processed_data_dir: data/processed
+  outputs_dir: outputs
+  features_output: outputs/features/features.csv
+  references_output_dir: outputs/references
+  reports_output_dir: outputs/reports
+  scores_output_dir: outputs/scores
+  figures_output_dir: outputs/figures
+
+data:
+  supported_suffixes:
+    - .csv
+    - .txt
+    - .tsv
+    - .npy
+    - .npz
+
+defaults:
+  domain: BCARS
+  source_type: uploaded
+  sample_class: null
+  sample_name: null
+  preprocessing_status: raw
+
+logging:
+  level: INFO
+  file: null

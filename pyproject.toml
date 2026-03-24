@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carsguard"
+version = "0.1.0"
+description = "Validation framework for physical realism and Raman consistency in CARS/BCARS spectra."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Your Name" }
+]
+keywords = [
+  "CARS",
+  "BCARS",
+  "Raman",
+  "spectroscopy",
+  "validation",
+  "quality-control",
+  "simulation"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "pyyaml>=6.0",
+  "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "jupyter>=1.0",
+]
+app = [
+  "streamlit>=1.30",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

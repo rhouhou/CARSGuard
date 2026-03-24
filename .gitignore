@@ -1,0 +1,63 @@
+
+---
+
+# `.gitignore`
+
+```gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs / editors
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Data and outputs
+data/interim/
+data/processed/
+outputs/features/
+outputs/scores/
+outputs/reports/
+outputs/figures/
+outputs/references/
+
+# Optional: ignore raw data if large/private
+# data/raw/
+
+# Streamlit
+.streamlit/
+
+# Temporary files
+*.tmp
+*.bak

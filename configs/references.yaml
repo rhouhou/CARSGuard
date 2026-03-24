@@ -1,0 +1,22 @@
+raman_reference:
+  source_type: ramanbiolib
+  domain: Raman
+  peak_min_prominence: 0.01
+  peak_min_distance: 3
+  background_window: 31
+
+cars_reference:
+  source_type: real_cars
+  domain: null
+  peak_min_prominence: 0.01
+  peak_min_distance: 3
+  background_window: 31
+
+nearest_neighbors:
+  k: 5
+  exclude_keys:
+    - spectrum_id
+    - sample_class
+    - sample_name
+    - domain
+    - source_type
