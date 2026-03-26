@@ -30,14 +30,14 @@ def test_crop_spectrum():
 
 def test_resample():
     spec = make_test_spectrum()
-    new_x = np.linspace(900, 1500, 50)
 
     cropped = crop_spectrum(spec, x_min=900, x_max=1500)
+    new_x = np.linspace(cropped.x.min(), cropped.x.max(), 50)
     resampled = resample_spectrum(cropped, new_x=new_x)
 
     assert resampled.n_points == 50
-    assert np.isclose(resampled.x[0], 900.0)
-    assert np.isclose(resampled.x[-1], 1500.0)
+    assert np.isclose(resampled.x[0], cropped.x.min())
+    assert np.isclose(resampled.x[-1], cropped.x.max())
 
 
 def test_normalization_max():

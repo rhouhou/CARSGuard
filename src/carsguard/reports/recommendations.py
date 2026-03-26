@@ -12,6 +12,7 @@ def build_recommendations(evaluation: Dict[str, Any]) -> List[str]:
     bcars = evaluation.get("bcars_realism")
     raman = evaluation.get("raman_consistency")
     artifact = evaluation.get("artifact_risk")
+    physics = evaluation.get("physics_plausibility")
 
     if bcars is not None:
         bcars_score = float(bcars.get("score", 0.0))
@@ -82,7 +83,35 @@ def build_recommendations(evaluation: Dict[str, Any]) -> List[str]:
                     "Inspect for interpolation errors, clipping, or isolated intensity outliers."
                 )
 
-    # Deduplicate while preserving order
+    if physics is not None:
+        physics_score = float(physics.get("score", 0.0))
+        comp = physics.get("component_scores", {})
+
+        if physics_score < 0.45:
+            recommendations.append(
+                "Inspect physics-informed plausibility checks before treating this spectrum as a realistic coherent measurement."
+            )
+
+        if comp.get("peak_width_plausibility", 1.0) < 0.5:
+            recommendations.append(
+                "Increase or verify effective spectral broadening; current peak widths may be below a plausible instrument-limited regime."
+            )
+
+        if comp.get("background_plausibility", 1.0) < 0.5:
+            recommendations.append(
+                "Revisit the balance between structured signal and non-resonant background."
+            )
+
+        if comp.get("spike_plausibility", 1.0) < 0.5:
+            recommendations.append(
+                "Inspect isolated intensity spikes, clipping, or interpolation artifacts."
+            )
+
+        if comp.get("roughness_plausibility", 1.0) < 0.5:
+            recommendations.append(
+                "Inspect whether the spectrum is too oscillatory or numerically unstable to be physically plausible."
+            )
+
     deduped: List[str] = []
     seen = set()
     for rec in recommendations:

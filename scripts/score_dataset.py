@@ -38,6 +38,7 @@ def main() -> None:
     raman_cfg = scfg["raman_consistency"]
     artifact_cfg = scfg["artifact_detection"]
     label_cfg = scfg["score_labels"]
+    physics_cfg = scfg["physics_plausibility"]
 
     benchmark = args.benchmark or Path(paths["benchmark_table"])
     output = args.output or (Path(paths["scores_output_dir"]) / "dataset_scores.csv")
@@ -63,6 +64,8 @@ def main() -> None:
             bcars_neighbor_k=bcars_cfg["neighbor_k"],
             raman_neighbor_k=raman_cfg["neighbor_k"],
             artifact_thresholds=artifact_cfg["thresholds"],
+            physics_thresholds=physics_cfg["thresholds"] if physics_cfg["enabled"] else None,
+            physics_weights=physics_cfg["weights"] if physics_cfg["enabled"] else None,
             label_thresholds=label_cfg,
         )
         report = build_report(evaluation)
@@ -76,10 +79,12 @@ def main() -> None:
                 "bcars_realism_score": None if report["bcars_realism"] is None else report["bcars_realism"]["score"],
                 "raman_consistency_score": None if report["raman_consistency"] is None else report["raman_consistency"]["score"],
                 "artifact_risk_score": None if report["artifact_risk"] is None else report["artifact_risk"]["score"],
+                "physics_plausibility_score": None if report["physics_plausibility"] is None else report["physics_plausibility"]["score"],
                 "confidence_score": None if report["confidence"] is None else report["confidence"]["score"],
                 "bcars_realism_label": report["score_labels"].get("bcars_realism"),
                 "raman_consistency_label": report["score_labels"].get("raman_consistency"),
                 "artifact_risk_label": report["score_labels"].get("artifact_risk"),
+                "physics_plausibility_label": report["score_labels"].get("physics_plausibility"),
                 "confidence_label": report["score_labels"].get("confidence"),
                 "n_warnings": len(report.get("warnings", [])),
                 "n_recommendations": len(report.get("recommendations", [])),

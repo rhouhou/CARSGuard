@@ -20,21 +20,23 @@ def _safe_score_block(block: Dict[str, Any] | None) -> Dict[str, Any] | None:
         "neighbor_score": block.get("neighbor_score"),
         "components": block.get("components", {}),
         "risk_components": block.get("risk_components", {}),
+        "component_scores": block.get("component_scores", {}),
         "notes": block.get("notes", []),
+        "thresholds": block.get("thresholds", {}),
+        "weights": block.get("weights", {}),
     }
 
 
 def _collect_warnings(evaluation: Dict[str, Any]) -> List[str]:
     warnings: List[str] = []
 
-    for key in ("bcars_realism", "raman_consistency", "artifact_risk"):
+    for key in ("bcars_realism", "raman_consistency", "artifact_risk", "physics_plausibility"):
         block = evaluation.get(key)
         if block is None:
             continue
         for warning in block.get("warnings", []):
             warnings.append(warning)
 
-    # Deduplicate
     deduped: List[str] = []
     seen = set()
     for item in warnings:
@@ -59,6 +61,7 @@ def build_report(evaluation: Dict[str, Any]) -> Dict[str, Any]:
         "bcars_realism": _safe_score_block(evaluation.get("bcars_realism")),
         "raman_consistency": _safe_score_block(evaluation.get("raman_consistency")),
         "artifact_risk": _safe_score_block(evaluation.get("artifact_risk")),
+        "physics_plausibility": _safe_score_block(evaluation.get("physics_plausibility")),
         "confidence": _safe_score_block(evaluation.get("confidence")),
         "warnings": _collect_warnings(evaluation),
         "recommendations": build_recommendations(evaluation),

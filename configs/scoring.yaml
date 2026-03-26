@@ -48,3 +48,17 @@ confidence:
 score_labels:
   high_threshold: 0.75
   medium_threshold: 0.45
+
+physics_plausibility:
+  enabled: true
+  thresholds:
+    min_peak_width: 3.0
+    max_background_dominance: 10.0
+    min_background_dominance: 0.05
+    max_spike_ratio: 10.0
+    max_roughness_ratio: 5.0
+  weights:
+    peak_width: 0.3
+    background: 0.3
+    spikes: 0.2
+    roughness: 0.2

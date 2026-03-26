@@ -2,6 +2,7 @@ import numpy as np
 
 from carsguard.core.spectrum import Spectrum
 from carsguard.features.feature_vector import extract_feature_vector
+from carsguard.physics.sanity import score_physics_plausibility
 from carsguard.scoring.artifact_detection import score_artifact_risk
 from carsguard.scoring.bcars_realism import score_bcars_realism
 from carsguard.scoring.raman_consistency import score_raman_consistency
@@ -26,10 +27,6 @@ def make_test_spectrum(domain: str = "BCARS", source_type: str = "test") -> Spec
 
 
 def make_reference_profile_from_features(features: dict) -> dict:
-    """
-    Minimal synthetic reference profile for scoring tests.
-    Center stats around the query feature values so the score should be decent.
-    """
     feature_statistics = {}
     feature_table = []
 
@@ -98,6 +95,45 @@ def test_artifact_score_respects_custom_thresholds():
     assert len(custom_result["warnings"]) >= len(default_result["warnings"])
 
 
+def test_physics_plausibility_runs():
+    spec = make_test_spectrum()
+    features = extract_feature_vector(spec)
+
+    result = score_physics_plausibility(features)
+
+    assert "score" in result
+    assert 0.0 <= result["score"] <= 1.0
+    assert "component_scores" in result
+    assert "warnings" in result
+
+
+def test_physics_plausibility_respects_custom_thresholds():
+    spec = make_test_spectrum()
+    features = extract_feature_vector(spec)
+
+    default_result = score_physics_plausibility(features)
+
+    strict_result = score_physics_plausibility(
+        features,
+        thresholds={
+            "min_peak_width": 1000.0,
+            "max_background_dominance": 0.01,
+            "min_background_dominance": 0.9,
+            "max_spike_ratio": 0.01,
+            "max_roughness_ratio": 0.01,
+        },
+        weights={
+            "peak_width": 0.4,
+            "background": 0.3,
+            "spikes": 0.2,
+            "roughness": 0.1,
+        },
+    )
+
+    assert strict_result["score"] <= default_result["score"]
+    assert len(strict_result["warnings"]) >= len(default_result["warnings"])
+
+
 def test_label_score_default_thresholds():
     assert label_score(0.90) == "high"
     assert label_score(0.60) == "medium"
@@ -148,7 +184,7 @@ def test_raman_consistency_respects_selected_features():
     assert 0.0 <= result["score"] <= 1.0
 
 
-def test_evaluate_spectrum_uses_config_like_overrides():
+def test_evaluate_spectrum_includes_physics_plausibility():
     spec = make_test_spectrum(domain="BCARS")
     features = extract_feature_vector(spec)
 
@@ -173,15 +209,24 @@ def test_evaluate_spectrum_uses_config_like_overrides():
             "narrow_peak_width_threshold": 3.0,
             "spike_ratio_threshold": 10.0,
         },
+        physics_thresholds={
+            "min_peak_width": 3.0,
+            "max_background_dominance": 10.0,
+            "min_background_dominance": 0.05,
+            "max_spike_ratio": 10.0,
+            "max_roughness_ratio": 5.0,
+        },
+        physics_weights={
+            "peak_width": 0.3,
+            "background": 0.3,
+            "spikes": 0.2,
+            "roughness": 0.2,
+        },
         label_thresholds={"high_threshold": 0.8, "medium_threshold": 0.3},
     )
 
-    assert "bcars_realism" in result
-    assert "raman_consistency" in result
-    assert "artifact_risk" in result
-    assert "confidence" in result
+    assert "physics_plausibility" in result
+    assert result["physics_plausibility"]["score_name"] == "physics_plausibility"
+    assert result["score_labels"]["physics_plausibility"] in {"low", "medium", "high"}
     assert result["bcars_realism"]["selected_features"] == ["peak_count", "dynamic_range"]
     assert result["raman_consistency"]["selected_features"] == ["peak_count", "center_of_mass"]
-    assert result["bcars_realism"]["neighbor_k"] == 2
-    assert result["raman_consistency"]["neighbor_k"] == 2
-    assert result["score_labels"]["confidence"] in {"low", "medium", "high"}

@@ -7,7 +7,7 @@ name = "carsguard"
 version = "0.1.0"
 description = "Validation framework for physical realism and Raman consistency in CARS/BCARS spectra."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.9.6"
 license = { file = "LICENSE" }
 authors = [
   { name = "Your Name" }

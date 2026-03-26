@@ -39,6 +39,7 @@ def main() -> None:
     raman_cfg = scfg["raman_consistency"]
     artifact_cfg = scfg["artifact_detection"]
     label_cfg = scfg["score_labels"]
+    physics_cfg = scfg["physics_plausibility"]
 
     domain = args.domain or defaults["domain"]
     source_type = args.source_type or defaults["source_type"]
@@ -69,6 +70,8 @@ def main() -> None:
         bcars_neighbor_k=bcars_cfg["neighbor_k"],
         raman_neighbor_k=raman_cfg["neighbor_k"],
         artifact_thresholds=artifact_cfg["thresholds"],
+        physics_thresholds=physics_cfg["thresholds"] if physics_cfg["enabled"] else None,
+        physics_weights=physics_cfg["weights"] if physics_cfg["enabled"] else None,
         label_thresholds=label_cfg,
     )
     report = build_report(evaluation)

@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Dict, Optional
 
 from carsguard.features.feature_vector import extract_feature_vector
+from carsguard.physics.sanity import score_physics_plausibility
 from carsguard.scoring.artifact_detection import score_artifact_risk
 from carsguard.scoring.bcars_realism import score_bcars_realism
 from carsguard.scoring.confidence import score_confidence
@@ -39,6 +40,8 @@ def evaluate_spectrum(
     bcars_neighbor_k: int = 5,
     raman_neighbor_k: int = 5,
     artifact_thresholds: Optional[Dict[str, float]] = None,
+    physics_thresholds: Optional[Dict[str, float]] = None,
+    physics_weights: Optional[Dict[str, float]] = None,
     label_thresholds: Optional[Dict[str, float]] = None,
 ) -> Dict[str, Any]:
     """
@@ -74,6 +77,12 @@ def evaluate_spectrum(
         thresholds=artifact_thresholds,
     )
 
+    physics_result = score_physics_plausibility(
+        features=features,
+        thresholds=physics_thresholds,
+        weights=physics_weights,
+    )
+
     confidence_result = score_confidence(
         bcars_result=bcars_result,
         raman_result=raman_result,
@@ -90,6 +99,7 @@ def evaluate_spectrum(
         "bcars_realism": bcars_result,
         "raman_consistency": raman_result,
         "artifact_risk": artifact_result,
+        "physics_plausibility": physics_result,
         "confidence": confidence_result,
     }
 
@@ -105,9 +115,12 @@ def evaluate_spectrum(
             thresholds=label_thresholds,
         )
 
-    # For artifact risk, low risk is good, so label 1-risk
     score_labels["artifact_risk"] = label_score(
         1.0 - float(artifact_result["score"]),
+        thresholds=label_thresholds,
+    )
+    score_labels["physics_plausibility"] = label_score(
+        float(physics_result["score"]),
         thresholds=label_thresholds,
     )
     score_labels["confidence"] = label_score(

@@ -124,9 +124,9 @@ def _load_text_spectrum(
 
     try:
         if delimiter is None:
-            df = pd.read_csv(file_path, sep=None, engine="python", comment="#")
+            df = pd.read_csv(file_path, sep=None, engine="python", comment="#", header=None)
         else:
-            df = pd.read_csv(file_path, sep=delimiter, comment="#")
+            df = pd.read_csv(file_path, sep=delimiter, comment="#", header=None)
     except Exception as exc:
         raise SpectrumValidationError(f"Failed to read text spectrum: {file_path}") from exc
 

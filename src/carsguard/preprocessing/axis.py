@@ -83,7 +83,8 @@ def resample_spectrum(
         x = spectrum.x
         y = spectrum.y
 
-    if new_x.min() < x.min() or new_x.max() > x.max():
+    eps = 1e-9
+    if new_x.min() < x.min() - eps or new_x.max() > x.max() + eps:
         raise SpectrumValidationError(
             f"New axis [{new_x.min():.3f}, {new_x.max():.3f}] exceeds "
             f"original spectrum range [{x.min():.3f}, {x.max():.3f}] "
