@@ -493,10 +493,3 @@ If you use CARSGuard in research, education, or benchmarking work, please cite i
 
 This project is licensed under the MIT License.
 
----
-
-## Author
-
-**Rola Houhou**
-
-CARSGuard is part of a broader portfolio of spectroscopy, medical-imaging, and scientific machine-learning projects.
