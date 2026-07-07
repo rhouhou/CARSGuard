@@ -1,10 +1,4 @@
-
----
-
-# `.gitignore`
-
-```gitignore
-# Python
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
@@ -14,50 +8,63 @@ build/
 dist/
 *.egg-info/
 .eggs/
+pip-wheel-metadata/
 
 # Virtual environments
 .venv/
 venv/
 env/
-
-# Jupyter
-.ipynb_checkpoints/
+ENV/
 
 # Testing / coverage
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+.tox/
+.nox/
+
+# Type checking / linting
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
 
 # IDEs / editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# Logs
+# Logs and environment files
 *.log
-
-# Environment files
 .env
-.env.*
 
-# Data and outputs
+# Local generated outputs
+outputs/
+results/
+tmp/
+tmp_*/
+*.npz
+*.npy
+*.jsonl
+
+# Local data
+data/raw/
 data/interim/
 data/processed/
-outputs/features/
-outputs/scores/
-outputs/reports/
-outputs/figures/
-outputs/references/
 
-# Optional: ignore raw data if large/private
-# data/raw/
+# Keep lightweight reference/documentation files if needed
+!data/README.md
+!data/benchmark_table.csv
 
-# Streamlit
-.streamlit/
-
-# Temporary files
-*.tmp
-*.bak
+# Keep documentation assets if added later
+!docs/assets/
+!docs/assets/*.png
+!docs/assets/*.svg
+!docs/assets/*.pdf
