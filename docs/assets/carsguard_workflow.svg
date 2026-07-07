@@ -1,0 +1,72 @@
+<svg width="920" height="230" viewBox="0 0 920 230" xmlns="http://www.w3.org/2000/svg">
+  <rect width="920" height="230" fill="#ffffff"/>
+
+  <style>
+    .box {
+      fill: #f6f8fa;
+      stroke: #57606a;
+      stroke-width: 1.5;
+      rx: 12;
+    }
+    .title {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      fill: #24292f;
+    }
+    .text {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      fill: #57606a;
+    }
+    .arrow {
+      stroke: #57606a;
+      stroke-width: 2;
+      marker-end: url(#arrowhead);
+    }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#57606a"/>
+    </marker>
+  </defs>
+
+  <rect class="box" x="30" y="55" width="140" height="90"/>
+  <text class="title" x="100" y="88" text-anchor="middle">Load spectra</text>
+  <text class="text" x="100" y="112" text-anchor="middle">Raman, CARS,</text>
+  <text class="text" x="100" y="130" text-anchor="middle">BCARS, simulated</text>
+
+  <line class="arrow" x1="170" y1="100" x2="220" y2="100"/>
+
+  <rect class="box" x="220" y="55" width="140" height="90"/>
+  <text class="title" x="290" y="88" text-anchor="middle">Preprocess</text>
+  <text class="text" x="290" y="112" text-anchor="middle">resample, smooth,</text>
+  <text class="text" x="290" y="130" text-anchor="middle">normalize</text>
+
+  <line class="arrow" x1="360" y1="100" x2="410" y2="100"/>
+
+  <rect class="box" x="410" y="55" width="140" height="90"/>
+  <text class="title" x="480" y="88" text-anchor="middle">Extract features</text>
+  <text class="text" x="480" y="112" text-anchor="middle">peaks, smoothness,</text>
+  <text class="text" x="480" y="130" text-anchor="middle">background</text>
+
+  <line class="arrow" x1="550" y1="100" x2="600" y2="100"/>
+
+  <rect class="box" x="600" y="55" width="140" height="90"/>
+  <text class="title" x="670" y="88" text-anchor="middle">Score</text>
+  <text class="text" x="670" y="112" text-anchor="middle">realism, Raman,</text>
+  <text class="text" x="670" y="130" text-anchor="middle">artifacts, confidence</text>
+
+  <line class="arrow" x1="740" y1="100" x2="790" y2="100"/>
+
+  <rect class="box" x="790" y="55" width="100" height="90"/>
+  <text class="title" x="840" y="88" text-anchor="middle">Report</text>
+  <text class="text" x="840" y="112" text-anchor="middle">warnings +</text>
+  <text class="text" x="840" y="130" text-anchor="middle">actions</text>
+
+  <text class="text" x="460" y="190" text-anchor="middle">
+    CARSGuard validation workflow for physical realism, Raman consistency, artifact risk, and confidence
+  </text>
+</svg>

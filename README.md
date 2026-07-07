@@ -128,6 +128,12 @@ CARSGuard  → validate plausibility and Raman consistency
 
 ---
 
+## Workflow diagram
+
+![CARSGuard validation workflow](docs/assets/carsguard_workflow.svg)
+
+---
+
 ## Installation
 
 Clone the repository:
