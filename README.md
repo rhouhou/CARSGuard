@@ -62,10 +62,14 @@ CARSGuard is currently an **alpha-stage research and portfolio project**.
 | JSON/text report export | Implemented |
 | Unit tests | Implemented |
 | GitHub Actions CI | Implemented |
+| Ruff linting in CI | Implemented |
+| Markdown link checker | Implemented |
 | Citation metadata | Implemented |
 | Changelog | Implemented |
 | Lightweight documentation | Implemented |
-| Streamlit/app interface | Prototype / planned |
+| Example validation report | Implemented |
+| Workflow diagram | Implemented |
+| Streamlit/app interface | Prototype implemented |
 | Full documentation site | Planned |
 | Real-data validation report | Planned |
 

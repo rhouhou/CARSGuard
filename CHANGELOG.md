@@ -30,6 +30,15 @@ This project follows a simple versioned changelog format.
 - Citation metadata with `CITATION.cff`
 - Improved README with installation, workflow, scores, limitations, and roadmap
 - Lightweight documentation pages for scoring, preprocessing, references, reports, and integration
+- Streamlit prototype app documentation
+- Formatted Streamlit app entry point
+- Example validation report
+- Script documentation
+- Workflow diagram for the README
+- Documentation assets README
+- Markdown link checker
+- CI link-checking step
+- Ruff linting in CI
 
 ### Fixed
 
