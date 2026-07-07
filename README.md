@@ -439,6 +439,12 @@ Planned improvements include:
 
 ---
 
+## Changelog
+
+See [`CHANGELOG.md`](CHANGELOG.md) for release history.
+
+---
+
 ## Citation
 
 If you use CARSGuard in research, education, or benchmarking work, please cite it using the metadata in [`CITATION.cff`](CITATION.cff).
