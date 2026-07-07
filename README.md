@@ -1,5 +1,6 @@
 # CARSGuard
 
+![CI](https://github.com/rhouhou/CARSGuard/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
@@ -61,7 +62,7 @@ CARSGuard is currently an **alpha-stage research and portfolio project**.
 | JSON/text report export         | Implemented         |
 | Unit tests                      | Implemented         |
 | Streamlit/app interface         | Prototype / planned |
-| CI workflow                     | Planned             |
+| GitHub Actions CI               | Implemented         |
 | Full documentation site         | Planned             |
 | Real-data validation report     | Planned             |
 
@@ -423,7 +424,7 @@ This project is **not intended for clinical diagnosis, medical decision-making, 
 
 Planned improvements include:
 
-* Add GitHub Actions CI for tests and linting
+* Expand CI with linting and optional data-validation smoke tests
 * Add a polished `pyproject.toml` with dependencies and optional extras
 * Add documentation pages for scoring, preprocessing, references, and reports
 * Add example validation reports
