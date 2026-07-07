@@ -441,7 +441,7 @@ Planned improvements include:
 
 ## Citation
 
-If you use CARSGuard in research, education, or benchmarking work, please cite:
+If you use CARSGuard in research, education, or benchmarking work, please cite it using the metadata in [`CITATION.cff`](CITATION.cff).
 
 ```bibtex
 @misc{carsguard2026,

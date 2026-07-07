@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use CARSGuard in research, education, or benchmarking work, please cite it using the metadata from this file."
+title: "CARSGuard: Validation Framework for Physical Realism and Raman Consistency in CARS/BCARS Spectra"
+authors:
+
+* family-names: "Houhou"
+  given-names: "Rola"
+  year: 2026
+  version: "0.1.0-alpha"
+  date-released: 2026-07-07
+  license: "MIT"
+  repository-code: "https://github.com/rhouhou/CARSGuard"
+  url: "https://github.com/rhouhou/CARSGuard"
+  abstract: "CARSGuard is an alpha-stage validation and quality-control framework for assessing physical realism, Raman consistency, artifact risk, and confidence in CARS/BCARS spectra."
+  keywords:
+* CARS
+* BCARS
+* Raman spectroscopy
+* coherent Raman
+* spectroscopy validation
+* quality control
+* artifact detection
+* signal processing
+* scientific Python
+* machine learning
