@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-
 DEFAULT_THRESHOLDS = {
     "roughness_divisor": 5.0,
     "curvature_divisor": 10.0,

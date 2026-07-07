@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from carsguard.references.nearest_neighbors import mean_neighbor_distance, nearest_neighbors
+from carsguard.references.nearest_neighbors import (
+    mean_neighbor_distance,
+    nearest_neighbors,
+)
 from carsguard.references.statistics import quantile_range_membership_score
-
 
 DEFAULT_BCARS_FEATURES = [
     "peak_count",

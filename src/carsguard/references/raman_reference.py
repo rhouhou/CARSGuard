@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List, Optional
 
 import pandas as pd
 
 from carsguard.core.dataset import SpectrumDataset
-from carsguard.features.feature_vector import extract_feature_vector, flatten_feature_vector
+from carsguard.features.feature_vector import (
+    extract_feature_vector,
+    flatten_feature_vector,
+)
 from carsguard.io.loaders import load_spectrum_from_record
 from carsguard.references.statistics import compute_dataframe_statistics
 

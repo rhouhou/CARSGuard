@@ -5,9 +5,9 @@ Validation framework for physical realism and Raman consistency
 in CARS/BCARS spectra.
 """
 
-from .core.spectrum import Spectrum
-from .core.dataset import SpectrumRecord, SpectrumDataset
 from .core.config import load_yaml_config
+from .core.dataset import SpectrumDataset, SpectrumRecord
+from .core.spectrum import Spectrum
 
 __all__ = [
     "Spectrum",

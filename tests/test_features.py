@@ -1,7 +1,10 @@
 import numpy as np
 
 from carsguard.core.spectrum import Spectrum
-from carsguard.features.feature_vector import extract_feature_vector, flatten_feature_vector
+from carsguard.features.feature_vector import (
+    extract_feature_vector,
+    flatten_feature_vector,
+)
 
 
 def make_test_spectrum():

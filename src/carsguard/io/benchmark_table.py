@@ -8,7 +8,6 @@ import pandas as pd
 from carsguard.core.dataset import SpectrumDataset, SpectrumRecord
 from carsguard.core.exceptions import BenchmarkTableError
 
-
 REQUIRED_COLUMNS = [
     "spectrum_id",
     "source_type",

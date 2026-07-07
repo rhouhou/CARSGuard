@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from typing import Any, Dict
 
 import numpy as np
 
-from carsguard.core.spectrum import Spectrum
 from carsguard.core.exceptions import SpectrumValidationError
+from carsguard.core.spectrum import Spectrum
 
 
 @dataclass

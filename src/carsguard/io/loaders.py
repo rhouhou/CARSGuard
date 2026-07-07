@@ -10,7 +10,6 @@ from carsguard.core.dataset import SpectrumRecord
 from carsguard.core.exceptions import SpectrumValidationError
 from carsguard.core.spectrum import Spectrum
 
-
 SUPPORTED_SUFFIXES = {".csv", ".txt", ".tsv", ".npy", ".npz"}
 
 

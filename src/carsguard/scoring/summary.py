@@ -9,7 +9,6 @@ from carsguard.scoring.bcars_realism import score_bcars_realism
 from carsguard.scoring.confidence import score_confidence
 from carsguard.scoring.raman_consistency import score_raman_consistency
 
-
 DEFAULT_LABEL_THRESHOLDS = {
     "high_threshold": 0.75,
     "medium_threshold": 0.45,

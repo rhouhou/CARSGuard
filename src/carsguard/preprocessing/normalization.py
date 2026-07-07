@@ -4,9 +4,8 @@ from typing import Literal
 
 import numpy as np
 
-from carsguard.core.spectrum import Spectrum
 from carsguard.core.exceptions import SpectrumValidationError
-
+from carsguard.core.spectrum import Spectrum
 
 NormalizationMethod = Literal["none", "minmax", "max", "area", "zscore", "vector"]
 

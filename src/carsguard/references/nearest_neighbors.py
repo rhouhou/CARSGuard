@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Sequence
-
 import math
-
+from typing import Any, Dict, List, Sequence
 
 DEFAULT_EXCLUDE_KEYS = {
     "spectrum_id",

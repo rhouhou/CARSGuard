@@ -1,7 +1,11 @@
-import numpy as np
 from pathlib import Path
 
-from carsguard.integration.carsbench_adapter import load_carsbench_spectrum, spectrum_from_carsbench_record
+import numpy as np
+
+from carsguard.integration.carsbench_adapter import (
+    load_carsbench_spectrum,
+    spectrum_from_carsbench_record,
+)
 
 
 def test_carsbench_adapter(tmp_path: Path):
