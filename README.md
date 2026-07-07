@@ -339,6 +339,7 @@ Additional documentation is available in:
 - [`examples/example_validation_report.json`](examples/example_validation_report.json)
 - [`examples/README.md`](examples/README.md)
 - [`scripts/README.md`](scripts/README.md)
+- [`app/README.md`](app/README.md)
 
 ---
 
