@@ -1,0 +1,56 @@
+{
+  "spectrum_id": "example_carsbench_A_typical_0001",
+  "source_type": "carsbench",
+  "domain": "A_typical",
+  "modality": "CARS/BCARS",
+  "preprocessing": {
+    "x_min": 800,
+    "x_max": 1800,
+    "num_points": 1000,
+    "normalization": "max",
+    "smoothing": "savgol",
+    "invalid_value_handling": "remove_or_interpolate"
+  },
+  "references": {
+    "raman_reference": "outputs/references/raman_reference.json",
+    "cars_reference": "outputs/references/cars_reference.json"
+  },
+  "scores": {
+    "bcars_realism": 0.73,
+    "raman_consistency": 0.61,
+    "artifact_risk": 0.22,
+    "physics_plausibility": 0.69,
+    "confidence": 0.68
+  },
+  "score_labels": {
+    "bcars_realism": "medium",
+    "raman_consistency": "medium",
+    "artifact_risk": "low",
+    "physics_plausibility": "medium",
+    "confidence": "medium"
+  },
+  "warnings": [
+    "background may dominate resonant structure",
+    "Raman consistency is moderate; inspect recovered peak positions"
+  ],
+  "recommendations": [
+    "Inspect the non-resonant background level before using this spectrum in downstream benchmarking.",
+    "Compare the recovered Raman-like signal against additional reference profiles.",
+    "Keep this spectrum for exploratory analysis, but review it before reporting scientific conclusions."
+  ],
+  "nearest_references": {
+    "raman": [
+      {
+        "reference_id": "raman_ref_012",
+        "distance": 0.31
+      }
+    ],
+    "cars": [
+      {
+        "reference_id": "cars_ref_004",
+        "distance": 0.27
+      }
+    ]
+  },
+  "notes": "This is a representative example report for documentation and portfolio demonstration."
+}

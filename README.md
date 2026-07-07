@@ -330,6 +330,8 @@ Additional documentation is available in:
 - [`docs/reports.md`](docs/reports.md)
 - [`docs/integration.md`](docs/integration.md)
 - [`data/README.md`](data/README.md)
+- [`examples/example_validation_report.json`](examples/example_validation_report.json)
+- [`examples/README.md`](examples/README.md)
 
 ---
 
