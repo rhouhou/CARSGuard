@@ -8,14 +8,12 @@ The goal is not to produce one opaque pass/fail label. Instead, CARSGuard separa
 
 ## Main score categories
 
-CARSGuard currently focuses on four main validation dimensions:
-
-| Score              | Purpose                                                                                          |
-| ------------------ | ------------------------------------------------------------------------------------------------ |
+| Score | Purpose |
+|---|---|
 | BCARS/CARS realism | Checks whether a spectrum looks experimentally plausible compared with coherent Raman references |
-| Raman consistency  | Checks whether a recovered Raman-like signal agrees with expected Raman-like behavior            |
-| Artifact risk      | Flags suspicious spectral behavior such as spikes, oscillations, or unrealistic structures       |
-| Confidence         | Summarizes how reliable the validation result is based on available evidence                     |
+| Raman consistency | Checks whether a recovered Raman-like signal agrees with expected Raman-like behavior |
+| Artifact risk | Flags suspicious spectral behavior such as spikes, oscillations, or unrealistic structures |
+| Confidence | Summarizes how reliable the validation result is based on available evidence |
 
 ---
 
@@ -25,12 +23,12 @@ The BCARS/CARS realism score measures whether an input CARS/BCARS spectrum appea
 
 This score may consider features such as:
 
-* spectral smoothness
-* signal dynamic range
-* background dominance
-* peak structure
-* noise behavior
-* similarity to real CARS/BCARS reference profiles
+- spectral smoothness
+- signal dynamic range
+- background dominance
+- peak structure
+- noise behavior
+- similarity to real CARS/BCARS reference profiles
 
 A low realism score may indicate that the spectrum is simulated poorly, corrupted, overprocessed, or outside the expected experimental distribution.
 
@@ -44,11 +42,11 @@ This score is useful when validating outputs from retrieval methods such as Kram
 
 It may consider:
 
-* similarity to Raman reference profiles
-* peak-position plausibility
-* peak-width plausibility
-* spectral shape consistency
-* agreement with expected biological or chemical signatures
+- similarity to Raman reference profiles
+- peak-position plausibility
+- peak-width plausibility
+- spectral shape consistency
+- agreement with expected biological or chemical signatures
 
 A low Raman consistency score does not always mean the result is wrong. It may also indicate that the reference profile is incomplete, the sample is outside the known reference space, or preprocessing needs adjustment.
 
@@ -60,14 +58,14 @@ The artifact-risk score estimates whether a spectrum contains suspicious pattern
 
 Possible artifacts include:
 
-* sharp spikes
-* unstable oscillations
-* unrealistic narrow peaks
-* excessive baseline drift
-* unusually flat spectra
-* suspiciously high noise
-* edge artifacts
-* background-dominated spectra
+- sharp spikes
+- unstable oscillations
+- unrealistic narrow peaks
+- excessive baseline drift
+- unusually flat spectra
+- suspiciously high noise
+- edge artifacts
+- background-dominated spectra
 
 A high artifact-risk score means the spectrum should be inspected manually before being used in downstream analysis.
 
@@ -79,11 +77,11 @@ The confidence score summarizes how much trust should be placed in the validatio
 
 Confidence may depend on:
 
-* whether reference profiles are available
-* whether the spectrum lies within the expected axis range
-* whether preprocessing succeeded
-* whether feature extraction was stable
-* whether different scoring modules agree
+- whether reference profiles are available
+- whether the spectrum lies within the expected axis range
+- whether preprocessing succeeded
+- whether feature extraction was stable
+- whether different scoring modules agree
 
 A low confidence score means CARSGuard may not have enough evidence to make a strong validation statement.
 
@@ -93,7 +91,7 @@ A low confidence score means CARSGuard may not have enough evidence to make a st
 
 Example output:
 
-```json id="v0ovpp"
+```json
 {
   "bcars_realism": {
     "score": 0.74
@@ -112,7 +110,7 @@ Example output:
 
 Possible interpretation:
 
-```text id="h60oac"
+```text
 The spectrum appears reasonably plausible.
 The recovered Raman-like signal has moderate agreement with references.
 Artifact risk is low.
@@ -123,60 +121,27 @@ This would usually be considered a result worth keeping, while still requiring s
 
 ---
 
-## Example warning case
-
-```json id="rfuxs3"
-{
-  "bcars_realism": {
-    "score": 0.31
-  },
-  "raman_consistency": {
-    "score": 0.22
-  },
-  "artifact_risk": {
-    "score": 0.81
-  },
-  "confidence": {
-    "score": 0.42
-  }
-}
-```
-
-Possible interpretation:
-
-```text id="6lelkd"
-The spectrum has low realism.
-The recovered Raman-like signal does not match reference behavior well.
-Artifact risk is high.
-The validation result has limited confidence.
-Manual inspection is strongly recommended.
-```
-
-This result should not be used directly for scientific conclusions without further review.
-
----
-
 ## Recommended score interpretation
 
 A practical interpretation guide is:
 
-| Score range | Interpretation                     |
-| ----------: | ---------------------------------- |
-|   0.80–1.00 | Strong / high-quality evidence     |
-|   0.60–0.79 | Reasonable but should be inspected |
-|   0.40–0.59 | Uncertain or borderline            |
-|   0.20–0.39 | Weak or suspicious                 |
-|   0.00–0.19 | Very weak or likely problematic    |
+| Score range | Interpretation |
+|---:|---|
+| 0.80–1.00 | Strong / high-quality evidence |
+| 0.60–0.79 | Reasonable but should be inspected |
+| 0.40–0.59 | Uncertain or borderline |
+| 0.20–0.39 | Weak or suspicious |
+| 0.00–0.19 | Very weak or likely problematic |
 
 For artifact risk, the interpretation is reversed:
 
-| Artifact-risk score | Interpretation          |
-| ------------------: | ----------------------- |
-|           0.00–0.19 | Low artifact risk       |
-|           0.20–0.39 | Mild artifact risk      |
-|           0.40–0.59 | Moderate artifact risk  |
-|           0.60–0.79 | High artifact risk      |
-|           0.80–1.00 | Very high artifact risk |
+| Artifact-risk score | Interpretation |
+|---:|---|
+| 0.00–0.19 | Low artifact risk |
+| 0.20–0.39 | Mild artifact risk |
+| 0.40–0.59 | Moderate artifact risk |
+| 0.60–0.79 | High artifact risk |
+| 0.80–1.00 | Very high artifact risk |
 
 ---
 
@@ -194,15 +159,15 @@ For now, CARSGuard should be used as a conservative inspection and quality-contr
 
 When reporting CARSGuard results, include:
 
-* spectrum source
-* preprocessing configuration
-* reference profile used
-* BCARS/CARS realism score
-* Raman consistency score
-* artifact-risk score
-* confidence score
-* warnings
-* recommendations
+- spectrum source
+- preprocessing configuration
+- reference profile used
+- BCARS/CARS realism score
+- Raman consistency score
+- artifact-risk score
+- confidence score
+- warnings
+- recommendations
 
 Avoid reporting only a single final score, because the individual score categories explain different failure modes.
 
@@ -214,10 +179,10 @@ The current scoring system is alpha-stage.
 
 Limitations include:
 
-* scoring rules are partly heuristic
-* reference profiles are still limited
-* thresholds are not fully calibrated
-* real-data validation should be expanded
-* uncertainty estimation is still planned
+- scoring rules are partly heuristic
+- reference profiles are still limited
+- thresholds are not fully calibrated
+- real-data validation should be expanded
+- uncertainty estimation is still planned
 
 CARSGuard scores should support expert review, not replace it.

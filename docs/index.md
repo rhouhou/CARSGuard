@@ -8,9 +8,13 @@ CARSGuard is an alpha-stage validation and quality-control framework for assessi
 
 ## Documentation pages
 
-| Page                       | Description                                                    |
-| -------------------------- | -------------------------------------------------------------- |
+| Page | Description |
+|---|---|
 | [`scoring.md`](scoring.md) | Explains CARSGuard validation scores and how to interpret them |
+| [`preprocessing.md`](preprocessing.md) | Explains spectrum preprocessing, resampling, smoothing, normalization, and harmonization |
+| [`references.md`](references.md) | Explains Raman and CARS/BCARS reference-profile construction |
+| [`reports.md`](reports.md) | Explains validation report structure, warnings, and recommendations |
+| [`integration.md`](integration.md) | Explains how CARSGuard connects with CARSBench and prCARS |
 
 ---
 
@@ -19,7 +23,11 @@ CARSGuard is an alpha-stage validation and quality-control framework for assessi
 Start with:
 
 1. [`scoring.md`](scoring.md)
-2. the main repository [`README.md`](../README.md)
+2. [`preprocessing.md`](preprocessing.md)
+3. [`references.md`](references.md)
+4. [`reports.md`](reports.md)
+5. [`integration.md`](integration.md)
+6. the main repository [`README.md`](../README.md)
 
 ---
 
@@ -27,10 +35,10 @@ Start with:
 
 The documentation is intentionally lightweight at this stage.
 
-More pages may be added later for:
+Future documentation may include:
 
-* preprocessing and harmonization
-* reference-profile construction
-* validation reports
-* integration with CARSBench and prCARS
-* app/interface usage
+- Streamlit app usage
+- example validation reports
+- real-data validation summaries
+- class-specific reference profiles
+- PDF/HTML report export
