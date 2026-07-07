@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict, Optional, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,7 +17,7 @@ from carsguard.reports.serializers import report_to_text
 
 
 @st.cache_data
-def load_reference(path: str | Path) -> dict[str, Any] | None:
+def load_reference(path: Union[str, Path]) -> Optional[Dict[str, Any]]:
     """Load a JSON reference profile if it exists."""
     reference_path = Path(path)
 
@@ -29,7 +29,7 @@ def load_reference(path: str | Path) -> dict[str, Any] | None:
 
 
 @st.cache_data
-def load_benchmark_dataset(path: str | Path):
+def load_benchmark_dataset(path: Union[str, Path]):
     """Load the benchmark table if it exists."""
     benchmark_path = Path(path)
 
@@ -39,7 +39,7 @@ def load_benchmark_dataset(path: str | Path):
     return load_benchmark_table(benchmark_path)
 
 
-def get_spectrum_by_id(dataset, spectrum_id: str, base_dir: str | Path = "."):
+def get_spectrum_by_id(dataset, spectrum_id: str, base_dir: Union[str, Path] = "."):
     """Load a spectrum from the benchmark dataset by spectrum ID."""
     if dataset is None:
         return None
@@ -56,7 +56,7 @@ def normalize_signal(signal: np.ndarray) -> np.ndarray:
     return signal / (np.max(np.abs(signal)) + 1e-12)
 
 
-def get_score(report: dict[str, Any], key: str) -> float | None:
+def get_score(report: Dict[str, Any], key: str) -> Optional[float]:
     """Safely extract a score from a report block."""
     block = report.get(key)
 
@@ -66,7 +66,7 @@ def get_score(report: dict[str, Any], key: str) -> float | None:
     return block.get("score")
 
 
-def format_score(score: float | None) -> str:
+def format_score(score: Optional[float]) -> str:
     """Format a score for Streamlit metric cards."""
     if score is None:
         return "N/A"
@@ -74,7 +74,7 @@ def format_score(score: float | None) -> str:
     return f"{score:.2f}"
 
 
-def interpret_score(score: float | None) -> str:
+def interpret_score(score: Optional[float]) -> str:
     """Convert a numeric score to a simple interpretation label."""
     if score is None:
         return "Not available"

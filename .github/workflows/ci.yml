@@ -28,7 +28,7 @@ jobs:
 
       - name: Check linting with Ruff
         run: |
-          python -m ruff check src tests
+          python -m ruff check app src tests
 
       - name: Check Markdown links
         run: |
