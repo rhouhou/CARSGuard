@@ -1,8 +1,8 @@
 # Scripts
 
-This folder contains command-line workflows for running CARSGuard validation steps.
+This folder contains command-line workflows for running CARSGuard validation, preprocessing, reference-building, inspection, and reporting steps.
 
-The scripts are intended for small experiments, local testing, and reproducible portfolio demonstrations.
+The scripts are intended for small experiments, local testing, real-data inspection, and reproducible portfolio demonstrations.
 
 ---
 
@@ -16,12 +16,13 @@ Preprocess spectra
 Extract features
 Build reference profiles
 Score spectra
-Generate validation reports
+Export validation reports
+Inspect warnings and recommendations
 ```
 
 ---
 
-## Script overview
+## Core validation scripts
 
 | Script                        | Purpose                                                                |
 | ----------------------------- | ---------------------------------------------------------------------- |
@@ -31,9 +32,20 @@ Generate validation reports
 | `build_reference_profiles.py` | Builds Raman and CARS/BCARS reference profiles                         |
 | `score_single_spectrum.py`    | Scores one spectrum and generates a validation output                  |
 | `score_dataset.py`            | Scores a full benchmark table or dataset                               |
-| `generate_report.py`          | Generates JSON or text validation reports, if available                |
+| `export_report.py`            | Exports validation results into report-friendly formats                |
 
-Some scripts may be experimental depending on the current development stage.
+---
+
+## Real-data inspection scripts
+
+| Script                       | Purpose                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| `inspect_mat_file.py`        | Inspects MATLAB `.mat` files and reports available arrays, shapes, and metadata |
+| `extract_toluene_spectra.py` | Extracts representative toluene CARS/BCARS spectra from raw MATLAB data         |
+| `extract_hepg2_spectra.py`   | Extracts representative HepG2 CARS/BCARS spectra from raw MATLAB data           |
+| `plot_toluene_mat.py`        | Plots toluene spectra from MATLAB data                                          |
+| `plot_hepg2_cube.py`         | Plots HepG2 cube/spectral examples                                              |
+| `plot_bcars_mat.py`          | Plots BCARS spectra from MATLAB data                                            |
 
 ---
 
@@ -85,6 +97,18 @@ python scripts/score_single_spectrum.py \
 python scripts/score_dataset.py \
   --raman-reference outputs/references/raman_reference.json \
   --cars-reference outputs/references/cars_reference.json
+```
+
+### Export reports
+
+```bash
+python scripts/export_report.py
+```
+
+### Inspect a MATLAB file
+
+```bash
+python scripts/inspect_mat_file.py path/to/file.mat
 ```
 
 ---
