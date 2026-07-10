@@ -8,13 +8,13 @@
 
 **CARSGuard** is a validation and quality-control framework for assessing the physical realism, Raman consistency, artifact risk, and confidence of CARS/BCARS spectra.
 
-It is designed for simulated, recovered, or uploaded coherent Raman spectra and provides interpretable scores, warnings, reference comparisons, and actionable recommendations.
+It works with simulated, recovered, or uploaded coherent Raman spectra and produces interpretable scores, warnings, reference comparisons, and actionable recommendations.
 
 ---
 
 ## Why this project matters
 
-CARS/BCARS spectra can look visually plausible while still containing unrealistic artifacts, unstable retrieval behavior, poor Raman consistency, or suspicious background dominance.
+CARS/BCARS spectra can look visually plausible while still containing unrealistic artifacts, unstable retrieval behavior, poor Raman consistency, or suspicious background dominance. A reconstruction that looks right is not necessarily physically valid.
 
 CARSGuard provides a transparent validation layer for checking whether spectra are:
 
@@ -24,28 +24,15 @@ CARSGuard provides a transparent validation layer for checking whether spectra a
 - suitable for downstream benchmarking
 - reliable enough to inspect, compare, or report
 
+Rather than a single opaque quality number, it reports several interpretable scores, each with its own warnings and recommendations, so that a result can be inspected and argued with.
+
 The goal is not to replace expert judgment, but to support reproducible and interpretable quality control for spectroscopy workflows.
-
----
-
-## What this repository demonstrates
-
-This project demonstrates:
-
-- scientific validation framework design
-- interpretable scoring for spectroscopy data
-- quality-control workflows for simulated and recovered spectra
-- reference-profile based comparison
-- artifact-risk detection
-- dataset-aware validation pipelines
-- modular Python package engineering
-- foundations for integration with CARSBench and prCARS
 
 ---
 
 ## Project status
 
-CARSGuard is currently an **alpha-stage research and portfolio project**.
+CARSGuard is **alpha-stage research software**.
 
 | Component | Status |
 |---|---|
@@ -69,9 +56,11 @@ CARSGuard is currently an **alpha-stage research and portfolio project**.
 | Lightweight documentation | Implemented |
 | Example validation report | Implemented |
 | Workflow diagram | Implemented |
-| Streamlit/app interface | Prototype implemented |
-| Full documentation site | Planned |
+| Streamlit/app interface | Prototype |
+| Class-conditional reference profiles | Planned |
+| Uncertainty calibration | Planned |
 | Real-data validation report | Planned |
+| Full documentation site | Planned |
 
 ---
 
@@ -82,34 +71,27 @@ CARSGuard is currently an **alpha-stage research and portfolio project**.
 - Preprocess and harmonize spectra onto a common axis
 - Extract interpretable spectral features
 - Build reference profiles from real or curated spectra
-- Score spectra using multiple validation dimensions:
-  - CARS/BCARS realism
-  - Raman consistency
-  - artifact risk
-  - confidence
+- Score spectra across four validation dimensions
 - Generate warnings and recommendations
 - Export validation reports in JSON and text form
-- Support integration with CARSBench-generated spectra
-- Provide modular components for future validation extensions
+- Integrate directly with CARSBench-generated spectra
 
 ---
 
-## Main validation scores
+## Validation scores
 
 CARSGuard uses multiple interpretable scores instead of a single opaque quality score.
 
 | Score | Purpose |
 |---|---|
-| BCARS/CARS realism | Measures how experimentally plausible a CARS/BCARS spectrum is relative to coherent Raman references |
-| Raman consistency | Measures how well a recovered or Raman-like spectrum agrees with Raman reference behavior |
-| Artifact risk | Detects suspicious behavior such as spikes, oscillations, unrealistic narrow peaks, or excessive background dominance |
-| Confidence | Summarizes how reliable the validation result is based on support from the scoring modules |
+| BCARS/CARS realism | How experimentally plausible a CARS/BCARS spectrum is relative to coherent Raman references |
+| Raman consistency | How well a recovered or Raman-like spectrum agrees with Raman reference behavior |
+| Artifact risk | Detects spikes, oscillations, unrealistic narrow peaks, or excessive background dominance |
+| Confidence | Summarizes how reliable the validation result is, given support from the scoring modules |
 
 ---
 
-## Intended workflow
-
-A typical CARSGuard workflow is:
+## Workflow
 
 ```text
 Load spectra
@@ -122,25 +104,11 @@ Generate reports
 Inspect warnings and recommendations
 ```
 
-In the broader CARS/BCARS ecosystem:
-
-```text
-CARSBench  → generate simulated benchmark spectra
-prCARS     → retrieve Raman-like spectra
-CARSGuard  → validate plausibility and Raman consistency
-```
-
----
-
-## Workflow diagram
-
 ![CARSGuard validation workflow](docs/assets/carsguard_workflow.svg)
 
 ---
 
 ## Installation
-
-Clone the repository:
 
 ```bash
 git clone https://github.com/rhouhou/CARSGuard.git
@@ -151,89 +119,36 @@ Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
-```
 
-On some macOS/Linux systems, you may need to use `python3` instead of `python`.
+# macOS / Linux
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
+```
 
 Install the package in editable mode:
 
 ```bash
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install -e .
-```
-
-For local testing:
-
-```bash
 python -m pip install pytest
 ```
 
-If your local Python command is `python3`, use:
+On systems where the interpreter is `python3`, substitute `python3` throughout.
 
-```bash
-python3 -m pip install --upgrade pip setuptools wheel
-python3 -m pip install -e .
-python3 -m pip install pytest
-```
-
----
-
-## Installation check
-
-After installation, verify that the package can be imported:
+### Installation check
 
 ```bash
 python -c "import carsguard; print(carsguard.__name__)"
+python -m pytest
 ```
 
-Expected output:
+Expected output from the first command:
 
 ```text
 carsguard
 ```
-
-Run the test suite:
-
-```bash
-python -m pytest
-```
-
-Or, on systems where `python3` is required:
-
-```bash
-python3 -m pytest
-```
-
----
-
-## Data layout
-
-CARSGuard expects raw and generated data to be organized under `data/`.
-
-Recommended structure:
-
-```text
-data/
-  raw/
-    ramanbiolib/
-    real_cars/
-    carsbench/
-    external/
-
-  benchmark_table.csv
-```
-
-The benchmark table stores metadata for each spectrum, such as:
-
-- spectrum ID
-- source type
-- domain
-- file path
-- preprocessing status
-- optional pairing or reference information
-
-Large raw datasets should usually not be committed to Git.
 
 ---
 
@@ -289,35 +204,18 @@ python scripts/score_dataset.py \
 
 ---
 
-## Example report output
+## Example report
 
-A typical validation report contains:
-
-- BCARS/CARS realism score
-- Raman consistency score
-- artifact-risk score
-- confidence score
-- warnings
-- recommendations
-- nearest reference matches
-
-Example JSON-like structure:
+A validation report contains realism, Raman-consistency, artifact-risk, and confidence
+scores, together with warnings, recommendations, and nearest reference matches.
 
 ```json
 {
   "spectrum_id": "sim_001",
-  "bcars_realism": {
-    "score": 0.73
-  },
-  "raman_consistency": {
-    "score": 0.61
-  },
-  "artifact_risk": {
-    "score": 0.22
-  },
-  "confidence": {
-    "score": 0.68
-  },
+  "bcars_realism": { "score": 0.73 },
+  "raman_consistency": { "score": 0.61 },
+  "artifact_risk": { "score": 0.22 },
+  "confidence": { "score": 0.68 },
   "warnings": [
     "background may dominate resonant structure"
   ],
@@ -327,85 +225,32 @@ Example JSON-like structure:
 }
 ```
 
----
-
-## Documentation
-
-Additional documentation is available in:
-
-- [`docs/index.md`](docs/index.md)
-- [`docs/scoring.md`](docs/scoring.md)
-- [`docs/preprocessing.md`](docs/preprocessing.md)
-- [`docs/references.md`](docs/references.md)
-- [`docs/reports.md`](docs/reports.md)
-- [`docs/integration.md`](docs/integration.md)
-- [`data/README.md`](data/README.md)
-- [`examples/example_validation_report.json`](examples/example_validation_report.json)
-- [`examples/README.md`](examples/README.md)
-- [`scripts/README.md`](scripts/README.md)
-- [`app/README.md`](app/README.md)
+A complete example is in [`examples/example_validation_report.json`](examples/example_validation_report.json).
 
 ---
 
-## Repository structure
+## Data layout
+
+CARSGuard expects raw and generated data under `data/`:
 
 ```text
-CARSGuard/
-  app/
-    Prototype app or interface components
+data/
+  raw/
+    ramanbiolib/
+    real_cars/
+    carsbench/
+    external/
 
-  configs/
-    Default validation, preprocessing, reference, and scoring settings
-
-  data/
-    Lightweight data documentation and benchmark metadata
-
-  docs/
-    Project documentation and design notes
-
-  notebooks/
-    Exploratory notebooks
-
-  scripts/
-    Command-line workflows for building tables, preprocessing, references, scoring, and reports
-
-  src/carsguard/
-    core/
-      Core data models and validation objects
-
-    io/
-      Spectrum loading and data input utilities
-
-    preprocessing/
-      Resampling, smoothing, normalization, and harmonization
-
-    features/
-      Spectral feature extraction
-
-    references/
-      Reference profile construction and nearest-reference logic
-
-    scoring/
-      Realism, Raman consistency, artifact-risk, and confidence scoring
-
-    reports/
-      JSON/text report generation
-
-    integration/
-      CARSBench and external workflow adapters
-
-    utils/
-      Shared utilities
-
-  tests/
-    Unit tests for adapters, config, features, loaders, preprocessing, and scoring
+  benchmark_table.csv
 ```
+
+The benchmark table stores per-spectrum metadata: spectrum ID, source type, domain, file
+path, preprocessing status, and optional pairing or reference information. Large raw
+datasets should not usually be committed to Git.
 
 ---
 
 ## Configuration
-
-Project settings are stored in:
 
 ```text
 configs/
@@ -415,81 +260,117 @@ configs/
   scoring.yaml
 ```
 
-These files define default paths, preprocessing parameters, reference-profile settings, and scoring behavior.
+These define default paths, preprocessing parameters, reference-profile settings, and
+scoring behavior.
 
 ---
 
-## Relationship to the CARS ecosystem
+## Repository structure
 
-CARSGuard is designed to be the validation layer in a three-part CARS/BCARS workflow:
+```text
+CARSGuard/
+  app/            Prototype app / interface components
+  configs/        Default validation, preprocessing, reference, scoring settings
+  data/           Data documentation and benchmark metadata
+  docs/           Documentation and design notes
+  notebooks/      Exploratory notebooks
+  scripts/        Command-line workflows
+  src/carsguard/
+    core/         Core data models and validation objects
+    io/           Spectrum loading and data input
+    preprocessing/  Resampling, smoothing, normalization, harmonization
+    features/     Spectral feature extraction
+    references/   Reference profiles and nearest-reference logic
+    scoring/      Realism, Raman consistency, artifact-risk, confidence
+    reports/      JSON/text report generation
+    integration/  CARSBench and external workflow adapters
+    utils/        Shared utilities
+  tests/          Unit tests
+```
+
+---
+
+## Documentation
+
+- [`docs/index.md`](docs/index.md)
+- [`docs/scoring.md`](docs/scoring.md)
+- [`docs/preprocessing.md`](docs/preprocessing.md)
+- [`docs/references.md`](docs/references.md)
+- [`docs/reports.md`](docs/reports.md)
+- [`docs/integration.md`](docs/integration.md)
+- [`data/README.md`](data/README.md)
+- [`examples/README.md`](examples/README.md)
+- [`scripts/README.md`](scripts/README.md)
+- [`app/README.md`](app/README.md)
+
+---
+
+## The CARS/BCARS ecosystem
+
+CARSGuard is the validation layer of a three-part workflow:
+
+```text
+CARSBench  → simulate benchmark spectra under controlled domain shifts
+prCARS     → retrieve Raman-like spectra
+CARSGuard  → validate plausibility, consistency, and artifact risk
+```
 
 | Project | Role |
 |---|---|
-| CARSBench | Simulates CARS/BCARS spectra under controlled domain shifts |
-| prCARS | Retrieves Raman-like signals from CARS/BCARS spectra |
-| CARSGuard | Validates spectra and retrieval outputs for realism, consistency, and artifacts |
-
-Together, these projects support simulation, retrieval, and validation experiments for spectroscopy-aware machine learning.
+| [CARSBench](https://github.com/rhouhou/CARSBench) | Simulates CARS/BCARS spectra under controlled domain shifts |
+| [prCARS](https://github.com/rhouhou/prCARS) | Retrieves Raman-like signals from CARS/BCARS spectra |
+| CARSGuard | Validates spectra and retrieval outputs |
 
 ---
 
 ## Design philosophy
 
-CARSGuard is intentionally:
-
-- modular
-- interpretable
-- dataset-aware
-- conservative in its claims
-- easy to extend with new references and scoring rules
-
-The framework is meant to flag suspicious spectra and guide inspection, not to make final scientific or clinical decisions automatically.
+CARSGuard is intentionally modular, interpretable, dataset-aware, conservative in its
+claims, and easy to extend with new references and scoring rules. It is meant to flag
+suspicious spectra and guide inspection, not to make final scientific or clinical
+decisions automatically.
 
 ---
 
 ## Limitations
 
-CARSGuard is an alpha-stage validation framework.
-
-Current limitations include:
+CARSGuard is alpha-stage validation software. Current limitations:
 
 - scoring rules are partly heuristic
 - reference profiles are simple and should be expanded
-- no advanced uncertainty calibration yet
+- no uncertainty calibration yet
 - no class-conditional reference modeling yet
 - no full real-data validation report yet
-- app/interface components are still prototype-stage
+- app/interface components are prototype-stage
 
-This project is **not intended for clinical diagnosis, medical decision-making, or deployment in real healthcare settings**.
+This project is **not intended for clinical diagnosis, medical decision-making, or
+deployment in real healthcare settings**.
 
 ---
 
 ## Roadmap
 
-Planned improvements include:
-
-- Expand CI with linting and optional data-validation smoke tests
-- Add a polished `pyproject.toml` with dependencies and optional extras
-- Add example validation reports and figures
-- Add class-specific reference profiles
-- Add richer artifact taxonomy
-- Add uncertainty and confidence calibration
-- Add integration examples with CARSBench and prCARS
-- Add Streamlit upload interface
-- Add PDF/HTML report export
-- Add stronger real-data validation examples where licensing allows
+- Class-specific reference profiles
+- Richer artifact taxonomy
+- Uncertainty and confidence calibration
+- Integration examples with CARSBench and prCARS
+- Streamlit upload interface
+- PDF/HTML report export
+- Real-data validation examples where licensing allows
+- Full documentation site
 
 ---
 
 ## Changelog
 
-See [`CHANGELOG.md`](CHANGELOG.md) for release history.
+See [`CHANGELOG.md`](CHANGELOG.md).
 
 ---
 
 ## Citation
 
-If you use CARSGuard in research, education, or benchmarking work, please cite it using the metadata in [`CITATION.cff`](CITATION.cff).
+If you use CARSGuard in research, education, or benchmarking work, please cite it using
+the metadata in [`CITATION.cff`](CITATION.cff).
 
 ```bibtex
 @misc{carsguard2026,
@@ -505,5 +386,8 @@ If you use CARSGuard in research, education, or benchmarking work, please cite i
 
 ## License
 
-This project is licensed under the MIT License.
+MIT. See [`LICENSE`](LICENSE).
 
+---
+
+*Part of my research on biophotonics and machine learning — [biophotonics-ai.de](https://biophotonics-ai.de)*
